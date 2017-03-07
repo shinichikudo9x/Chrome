@@ -40,6 +40,7 @@ namespace TopMostTest
         Thread showForm;
         bool isShow = true;
         TextBox txtSelected = new TextBox();
+        int mode = 0;
         ManualResetEvent _event = new ManualResetEvent(true);
 
         [DllImport("user32.dll")]
@@ -54,11 +55,6 @@ namespace TopMostTest
         {
             InitializeComponent();
             this.ShowInTaskbar = false;
-            this.notifyIcon1.Visible = true;
-            ContextMenuStrip menu = new ContextMenuStrip();
-            menu.Items.Add("Exit");
-            this.notifyIcon1.ContextMenuStrip = menu;
-            menu.ItemClicked += Menu_ItemClicked;
             txtSelected.TextChanged += TxtSelected_TextChanged;
         }
 
@@ -67,7 +63,8 @@ namespace TopMostTest
             if (pathKey != null && !pathKey.Equals(""))
             {
                 resultsCount = 0;
-                var match = founds.Where(founds => founds.Contains(txtSelected.Text.ToLower()));
+                var match = founds.Where(x => x.Contains(txtSelected.Text.ToLower())
+                                            || x.Contains(convertToANSI(txtSelected.Text.ToLower())));
                 if (match != null && match.Count() != 0)
                 {
                     try
@@ -90,20 +87,12 @@ namespace TopMostTest
             isSelected = true;
         }
 
-        private void Menu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem.Text.Equals("Exit"))
-            {
-                showForm.Abort();
-                Application.Exit();
-            }
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             SizeF scale = new SizeF { Width = Screen.PrimaryScreen.Bounds.Width / 1920f, Height = Screen.PrimaryScreen.Bounds.Height / 1080f };
             Scale(scale);
-            Point location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - this.Width / 2, SystemInformation.VirtualScreen.Height - this.Height);
+            // Point location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - this.Width / 2, SystemInformation.VirtualScreen.Height - this.Height);
+            Point location = new Point((int)Math.Floor(286 * scale.Width), (int) Math.Floor(226 * scale.Height));
             Location = location;
             this.mouseHookListener = new MouseHookListener(new GlobalHooker());
             this.mouseHookListener.Enabled = true;
@@ -167,7 +156,6 @@ namespace TopMostTest
                 {
                     txtQuestion.Text = extractImageToText(bQuest);
                 }
-                    
             }
         }
 
@@ -177,7 +165,6 @@ namespace TopMostTest
             {
                 GetCursorPos(out firstPos);
             }
-            
         }
 
         private void MouseHookListener_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -200,8 +187,9 @@ namespace TopMostTest
         {
             if(pathKey != null && !pathKey.Equals(""))
             {
-                resultsCount = 0; 
-                var match = founds.Where(founds => founds.Contains(txtQuestion.Text.ToLower()));
+                resultsCount = 0;
+                var match = founds.Where(x => x.Contains(txtQuestion.Text.ToLower()) 
+                                            || x.Contains(convertToANSI(txtQuestion.Text.ToLower())));
                 if (match != null && match.Count() != 0)
                 {
                     try
@@ -225,7 +213,16 @@ namespace TopMostTest
 
         private void txtResult_MouseClick(object sender, MouseEventArgs e)
         {
-          
+            if (pathKey == null || pathKey.Equals("")){
+                openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
+                openFileDialog1.FilterIndex = 1;
+                openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.DynamicDirectory;
+                if (DialogResult.OK == openFileDialog1.ShowDialog())
+                {
+                    pathKey = openFileDialog1.FileName;
+                    founds = ReadTextFromFile.readFile(pathKey);
+                }
+            }
             if (results != null && results.Count() > 1)
             {
                 try
@@ -245,7 +242,15 @@ namespace TopMostTest
                 txtSupport.Text = File.ReadAllText(pathAns);
             }
             else
-                txtSupport.Text = "select Ans file";            
+            {
+                openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
+                openFileDialog1.FilterIndex = 1;
+                openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.DynamicDirectory;
+                if (DialogResult.OK == openFileDialog1.ShowDialog())
+                {
+                    pathAns = openFileDialog1.FileName;
+                }
+            }          
         }
 
         private void txtQuestion_MouseDown(object sender, MouseEventArgs e)
@@ -262,12 +267,12 @@ namespace TopMostTest
         {
             if (language)
             {
-                btnLanguage.Text = "ENG";
+                btnLanguage.Text = "E";
                 language = !language;
             }
             else
             {
-                btnLanguage.Text = "VIE";
+                btnLanguage.Text = "V";
                 language = !language;
             }
         }
@@ -276,36 +281,26 @@ namespace TopMostTest
         {
             showForm.Abort();
             Application.Exit();
-            notifyIcon1.Visible = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             showForm.Abort();
             Application.Exit();
-            notifyIcon1.Visible = false;
         }
 
-        private void btnAns_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.DynamicDirectory;
-            if (DialogResult.OK == openFileDialog1.ShowDialog())
+            mode++;
+            if(mode % 2 == 1)
             {
-                pathAns = openFileDialog1.FileName;
+                txtSupport.Hide();
+                btnLanguage.Hide();
             }
-        }
-
-        private void btnKey_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
-            openFileDialog1.FilterIndex = 1;
-            openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.DynamicDirectory;
-            if (DialogResult.OK == openFileDialog1.ShowDialog())
+            if(mode % 2 == 0)
             {
-                pathKey = openFileDialog1.FileName;
-                founds = GetResultFromSupport.readFile(pathKey);
+                txtSupport.Show();
+                btnLanguage.Show();
             }
         }
         private string extractImageToText(Bitmap bmp)
@@ -328,7 +323,10 @@ namespace TopMostTest
             }
             return resultString;
         }
-
+        private String convertToANSI(String encode)
+        {
+            return Encoding.Default.GetString(Encoding.Default.GetBytes(encode));
+        }
         public void showForm_run() {
             while (true)
             {

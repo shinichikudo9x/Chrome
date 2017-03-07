@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Chrome
 {
-    class GetResultFromSupport
+    class ReadTextFromFile
     {
         public static List<string> readFile(string path)
         {

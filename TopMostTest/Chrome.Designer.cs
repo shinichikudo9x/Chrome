@@ -28,26 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Chrome));
             this.txtQuestion = new System.Windows.Forms.TextBox();
             this.txtSupport = new System.Windows.Forms.TextBox();
             this.txtResult = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnKey = new System.Windows.Forms.Button();
-            this.btnAns = new System.Windows.Forms.Button();
             this.btnLanguage = new System.Windows.Forms.Button();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.btnMode = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtQuestion
             // 
+            this.txtQuestion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQuestion.Location = new System.Drawing.Point(-1, 0);
+            this.txtQuestion.Location = new System.Drawing.Point(0, 0);
+            this.txtQuestion.Margin = new System.Windows.Forms.Padding(0);
             this.txtQuestion.Multiline = true;
             this.txtQuestion.Name = "txtQuestion";
-            this.txtQuestion.Size = new System.Drawing.Size(584, 48);
+            this.txtQuestion.Size = new System.Drawing.Size(522, 30);
             this.txtQuestion.TabIndex = 0;
             this.txtQuestion.TextChanged += new System.EventHandler(this.txtQuestion_TextChanged);
             this.txtQuestion.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtQuestion_MouseDown);
@@ -55,81 +54,78 @@
             // 
             // txtSupport
             // 
-            this.txtSupport.Location = new System.Drawing.Point(-1, 70);
+            this.txtSupport.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtSupport.Location = new System.Drawing.Point(0, 45);
+            this.txtSupport.Margin = new System.Windows.Forms.Padding(0);
             this.txtSupport.Multiline = true;
             this.txtSupport.Name = "txtSupport";
-            this.txtSupport.Size = new System.Drawing.Size(509, 48);
+            this.txtSupport.Size = new System.Drawing.Size(522, 30);
             this.txtSupport.TabIndex = 1;
             this.txtSupport.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtSupport_MouseClick);
             // 
             // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(-1, 45);
+            this.txtResult.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtResult.Location = new System.Drawing.Point(0, 30);
+            this.txtResult.Margin = new System.Windows.Forms.Padding(0);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(584, 19);
+            this.txtResult.Size = new System.Drawing.Size(522, 15);
             this.txtResult.TabIndex = 2;
             this.txtResult.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtResult_MouseClick);
             // 
-            // btnKey
-            // 
-            this.btnKey.Location = new System.Drawing.Point(511, 67);
-            this.btnKey.Margin = new System.Windows.Forms.Padding(0);
-            this.btnKey.Name = "btnKey";
-            this.btnKey.Size = new System.Drawing.Size(35, 25);
-            this.btnKey.TabIndex = 3;
-            this.btnKey.Text = "Key";
-            this.btnKey.UseVisualStyleBackColor = true;
-            this.btnKey.Click += new System.EventHandler(this.btnKey_Click);
-            // 
-            // btnAns
-            // 
-            this.btnAns.Location = new System.Drawing.Point(546, 67);
-            this.btnAns.Margin = new System.Windows.Forms.Padding(0);
-            this.btnAns.Name = "btnAns";
-            this.btnAns.Size = new System.Drawing.Size(35, 25);
-            this.btnAns.TabIndex = 4;
-            this.btnAns.Text = "Ans";
-            this.btnAns.UseVisualStyleBackColor = true;
-            this.btnAns.Click += new System.EventHandler(this.btnAns_Click);
-            // 
             // btnLanguage
             // 
-            this.btnLanguage.Location = new System.Drawing.Point(511, 92);
+            this.btnLanguage.BackColor = System.Drawing.Color.Transparent;
+            this.btnLanguage.FlatAppearance.BorderSize = 0;
+            this.btnLanguage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLanguage.ForeColor = System.Drawing.Color.Transparent;
+            this.btnLanguage.Location = new System.Drawing.Point(522, 55);
             this.btnLanguage.Margin = new System.Windows.Forms.Padding(0);
             this.btnLanguage.Name = "btnLanguage";
-            this.btnLanguage.Size = new System.Drawing.Size(70, 25);
+            this.btnLanguage.Size = new System.Drawing.Size(20, 20);
             this.btnLanguage.TabIndex = 5;
-            this.btnLanguage.Text = "ENG";
-            this.btnLanguage.UseVisualStyleBackColor = true;
+            this.btnLanguage.Text = "E";
+            this.btnLanguage.UseVisualStyleBackColor = false;
             this.btnLanguage.Click += new System.EventHandler(this.btnLanguage_Click);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Chrome";
-            this.notifyIcon1.Visible = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(559, 0);
+            this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.Transparent;
+            this.button1.Location = new System.Drawing.Point(522, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(24, 23);
+            this.button1.Size = new System.Drawing.Size(20, 20);
             this.button1.TabIndex = 6;
             this.button1.Text = "X";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnMode
+            // 
+            this.btnMode.BackColor = System.Drawing.Color.Transparent;
+            this.btnMode.FlatAppearance.BorderSize = 0;
+            this.btnMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMode.ForeColor = System.Drawing.Color.Transparent;
+            this.btnMode.Location = new System.Drawing.Point(522, 25);
+            this.btnMode.Name = "btnMode";
+            this.btnMode.Size = new System.Drawing.Size(20, 20);
+            this.btnMode.TabIndex = 7;
+            this.btnMode.Text = "M";
+            this.btnMode.UseVisualStyleBackColor = false;
+            this.btnMode.Click += new System.EventHandler(this.button2_Click);
             // 
             // Chrome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(583, 118);
+            this.ClientSize = new System.Drawing.Size(544, 75);
             this.ControlBox = false;
+            this.Controls.Add(this.btnMode);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLanguage);
-            this.Controls.Add(this.btnAns);
-            this.Controls.Add(this.btnKey);
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.txtSupport);
             this.Controls.Add(this.txtQuestion);
@@ -151,11 +147,9 @@
         private System.Windows.Forms.TextBox txtSupport;
         private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button btnKey;
-        private System.Windows.Forms.Button btnAns;
         private System.Windows.Forms.Button btnLanguage;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnMode;
     }
 }
 
