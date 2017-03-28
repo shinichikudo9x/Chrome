@@ -51,9 +51,14 @@ namespace TopMostTest
         private static extern bool GetCursorPos(out Point lpPoint);
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        static extern bool HideCaret(IntPtr hWnd);
         public Chrome()
         {
             InitializeComponent();
+            txtQuestion.BackColor = Color.FromArgb(241, 241, 241);
+            txtResult.BackColor = Color.FromArgb(241, 241, 241);
+            txtSupport.BackColor = Color.FromArgb(241, 241, 241);
             this.ShowInTaskbar = false;
             txtSelected.TextChanged += TxtSelected_TextChanged;
         }
@@ -73,7 +78,6 @@ namespace TopMostTest
                     }
                     catch (Exception ex)
                     {
-                        txtResult.Text = "Your key errors in line";
                     }
                     if (match.Count() > 1)
                         results = match;
@@ -126,7 +130,7 @@ namespace TopMostTest
                     {
                         _event.Set();
                         this.Show();
-                        opacity = 0.3;
+                        opacity = 0.1;
                         this.Opacity = opacity;
                     }
                     isHide = !isHide;
@@ -310,7 +314,7 @@ namespace TopMostTest
             {
                 using (var api = OcrApi.Create())
                 {
-                    if (btnLanguage.Text.Equals("ENG"))
+                    if (btnLanguage.Text.Equals("E"))
                         api.Init(Languages.English);
                     else api.Init(Languages.Vietnamese);
                     Thread.Sleep(20);
@@ -338,6 +342,9 @@ namespace TopMostTest
                         ShowWindow(this.Handle, 4);
                         SetWindowPos(this.Handle.ToInt32(), -1, this.Left, this.Top, this.Width, this.Height, 16u);
                         SetForegroundWindow(this.Handle);
+                        HideCaret(txtQuestion.Handle);
+                        HideCaret(txtResult.Handle);
+                        HideCaret(txtSupport.Handle);
                     }
                     if (isSelected)
                         txtSelected.Text = txtQuestion.SelectedText;

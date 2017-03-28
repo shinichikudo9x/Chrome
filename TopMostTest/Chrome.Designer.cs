@@ -59,6 +59,7 @@
             this.txtSupport.Margin = new System.Windows.Forms.Padding(0);
             this.txtSupport.Multiline = true;
             this.txtSupport.Name = "txtSupport";
+            this.txtSupport.ReadOnly = true;
             this.txtSupport.Size = new System.Drawing.Size(522, 30);
             this.txtSupport.TabIndex = 1;
             this.txtSupport.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtSupport_MouseClick);
@@ -70,6 +71,7 @@
             this.txtResult.Margin = new System.Windows.Forms.Padding(0);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
+            this.txtResult.ReadOnly = true;
             this.txtResult.Size = new System.Drawing.Size(522, 15);
             this.txtResult.TabIndex = 2;
             this.txtResult.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtResult_MouseClick);
