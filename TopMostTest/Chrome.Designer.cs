@@ -35,7 +35,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnLanguage = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnMode = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtQuestion
@@ -46,6 +45,7 @@
             this.txtQuestion.Margin = new System.Windows.Forms.Padding(0);
             this.txtQuestion.Multiline = true;
             this.txtQuestion.Name = "txtQuestion";
+            this.txtQuestion.ReadOnly = true;
             this.txtQuestion.Size = new System.Drawing.Size(522, 30);
             this.txtQuestion.TabIndex = 0;
             this.txtQuestion.TextChanged += new System.EventHandler(this.txtQuestion_TextChanged);
@@ -82,7 +82,7 @@
             this.btnLanguage.FlatAppearance.BorderSize = 0;
             this.btnLanguage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLanguage.ForeColor = System.Drawing.Color.Transparent;
-            this.btnLanguage.Location = new System.Drawing.Point(522, 55);
+            this.btnLanguage.Location = new System.Drawing.Point(522, 25);
             this.btnLanguage.Margin = new System.Windows.Forms.Padding(0);
             this.btnLanguage.Name = "btnLanguage";
             this.btnLanguage.Size = new System.Drawing.Size(20, 20);
@@ -105,27 +105,12 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btnMode
-            // 
-            this.btnMode.BackColor = System.Drawing.Color.Transparent;
-            this.btnMode.FlatAppearance.BorderSize = 0;
-            this.btnMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMode.ForeColor = System.Drawing.Color.Transparent;
-            this.btnMode.Location = new System.Drawing.Point(522, 25);
-            this.btnMode.Name = "btnMode";
-            this.btnMode.Size = new System.Drawing.Size(20, 20);
-            this.btnMode.TabIndex = 7;
-            this.btnMode.Text = "M";
-            this.btnMode.UseVisualStyleBackColor = false;
-            this.btnMode.Click += new System.EventHandler(this.button2_Click);
-            // 
             // Chrome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 75);
             this.ControlBox = false;
-            this.Controls.Add(this.btnMode);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnLanguage);
             this.Controls.Add(this.txtResult);
@@ -151,7 +136,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnLanguage;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnMode;
     }
 }
 

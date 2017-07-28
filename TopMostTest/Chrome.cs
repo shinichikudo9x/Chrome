@@ -95,7 +95,7 @@ namespace TopMostTest
         {
             SizeF scale = new SizeF { Width = Screen.PrimaryScreen.Bounds.Width / 1920f, Height = Screen.PrimaryScreen.Bounds.Height / 1080f };
             Scale(scale);
-            // Point location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - this.Width / 2, SystemInformation.VirtualScreen.Height - this.Height);
+            //Point location = new Point(Screen.PrimaryScreen.Bounds.Width / 2 - this.Width / 2, SystemInformation.VirtualScreen.Height - this.Height);
             Point location = new Point((int)Math.Floor(286 * scale.Width), (int) Math.Floor(226 * scale.Height));
             Location = location;
             this.mouseHookListener = new MouseHookListener(new GlobalHooker());
@@ -107,6 +107,7 @@ namespace TopMostTest
             this.mouseHookListener.MouseWheel += MouseHookListener_MouseWheel;
             showForm = new Thread(new ThreadStart(showForm_run));
             showForm.Priority = ThreadPriority.Highest;
+            Opacity = 0;
             try
             {
                 showForm.Start();
@@ -116,8 +117,9 @@ namespace TopMostTest
 
         private void MouseHookListener_MouseClick(object sender, MouseEventArgs e)
         {
+            int middle = Screen.PrimaryScreen.Bounds.Width / 2;
             GetCursorPos(out mousePos);
-            if (mousePos.X == 0 && mousePos.Y == 0)
+            if (mousePos.X > middle-100 && mousePos.X < middle + 100 && mousePos.Y == 0)
             {
                 if(e.Button == MouseButtons.Left)
                 {
@@ -199,6 +201,7 @@ namespace TopMostTest
                     try
                     {
                         txtResult.Text = match.ElementAt(0).Split('|')[1] + " (" + match.Count() + ")";
+                        if (match.Count() == 1) txtResult.Text = match.ElementAt(0).Split('|')[0];
                     }
                     catch(Exception ex)
                     {
@@ -217,6 +220,7 @@ namespace TopMostTest
 
         private void txtResult_MouseClick(object sender, MouseEventArgs e)
         {
+            txtSupport.Show();
             if (pathKey == null || pathKey.Equals("")){
                 openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
                 openFileDialog1.FilterIndex = 1;
@@ -241,20 +245,7 @@ namespace TopMostTest
 
         private void txtSupport_MouseClick(object sender, MouseEventArgs e)
         {
-            if (pathAns != null && !pathAns.Equals(""))
-            {
-                txtSupport.Text = File.ReadAllText(pathAns);
-            }
-            else
-            {
-                openFileDialog1.Filter = "Text Files (.txt)|*.txt|All Files (*.*)|*.*";
-                openFileDialog1.FilterIndex = 1;
-                openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.DynamicDirectory;
-                if (DialogResult.OK == openFileDialog1.ShowDialog())
-                {
-                    pathAns = openFileDialog1.FileName;
-                }
-            }          
+            ((TextBox)sender).Hide();
         }
 
         private void txtQuestion_MouseDown(object sender, MouseEventArgs e)
@@ -291,21 +282,6 @@ namespace TopMostTest
         {
             showForm.Abort();
             Application.Exit();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            mode++;
-            if(mode % 2 == 1)
-            {
-                txtSupport.Hide();
-                btnLanguage.Hide();
-            }
-            if(mode % 2 == 0)
-            {
-                txtSupport.Show();
-                btnLanguage.Show();
-            }
         }
         private string extractImageToText(Bitmap bmp)
         {
